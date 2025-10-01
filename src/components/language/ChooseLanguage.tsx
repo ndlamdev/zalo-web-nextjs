@@ -8,24 +8,24 @@
 
 "use client";
 import * as React from "react";
-import { useState } from "react";
+import { useLanguage } from "@/stores/language.store";
 
 type Props = unknown;
 
 export const ChooseLanguage = (props: Props) => {
-  const [languageActive, setLanguageActive] = useState<"vn" | "en">("vn");
+  const { language, change } = useLanguage();
 
   return (
     <ol className={"flex gap-2 text-xs active:font-semibold"}>
       <li
-        className={`text-blue-500 hover:underline active:text-blue-500 ${languageActive === "vn" && "font-semibold text-blue-500"}`}
-        onClick={() => setLanguageActive("vn")}
+        className={`text-blue-600 hover:underline active:text-blue-600 ${language === "vn" && "font-semibold text-blue-600"}`}
+        onClick={() => change("vn")}
       >
         Tiếng Việt
       </li>
       <li
-        className={`text-blue-500 hover:underline active:text-blue-500 ${languageActive === "en" && "font-semibold text-blue-500"}`}
-        onClick={() => setLanguageActive("en")}
+        className={`text-blue-600 hover:underline active:text-blue-600 ${language === "en" && "font-semibold text-blue-600"}`}
+        onClick={() => change("en")}
       >
         English
       </li>
