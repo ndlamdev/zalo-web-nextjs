@@ -12,7 +12,6 @@ import { NextResponse } from "next/server";
 export function middleware(req: NextRequest) {
   const token = req.cookies.get("REFRESH_TOKEN"); // ví dụ token lưu trong cookie
   const { pathname } = req.nextUrl;
-  console.log(token, pathname);
 
   // Nếu chưa login mà vào / hoặc các route cần bảo vệ
   if (!token && pathname === "/") {
