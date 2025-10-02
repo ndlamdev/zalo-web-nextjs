@@ -60,7 +60,7 @@ export default function Home() {
           <div className={"pb-2"}>
             <div
               className={
-                "mx-auto my-10 size-fit rounded-lg border-[1px] border-gray-200 p-1"
+                "mx-auto my-10 size-fit rounded-lg border-1 border-gray-200 p-1"
               }
             >
               <QrLogin
@@ -76,7 +76,7 @@ export default function Home() {
             </div>
             <div
               className={
-                "m-4 flex items-center gap-4 rounded-lg border-[1px] p-2"
+                "m-4 flex items-center gap-4 rounded-lg border-1 p-2"
               }
             >
               <Image src={bannerIcon} alt={""} width={75} height={75} />

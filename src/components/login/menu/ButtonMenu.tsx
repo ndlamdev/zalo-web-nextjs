@@ -16,7 +16,7 @@ type Props = React.DetailedHTMLProps<
 >;
 export const ButtonMenu = (props: Props) => {
   return (
-    <button className={"px-2 py-1 rounded-md border-[1px] border-gray-400"} {...props}>
+    <button className={"px-2 py-1 rounded-md border-1 border-gray-400"} {...props}>
       <Icon
         icon="ic:round-menu"
         width="24"
