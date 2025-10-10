@@ -40,19 +40,19 @@ export const MainMenu = (props: Props) => {
           />
         </button>
         <button
-          className={`cursor-pointer rounded-sm p-2 hover:bg-blue-700 ${menuItemActive === "contact" ? "bg-blue-800" : ""}`}
+          className={`cursor-pointer flex items-center justify-center rounded-sm p-2 hover:bg-blue-700 ${menuItemActive === "contact" ? "bg-blue-800" : ""}`}
           onClick={() => setMenuItemActive("contact")}
         >
           <Icon
             icon="fa7-solid:contact-book"
-            width="30"
+            width="27"
             height="30"
             style={{ color: "white" }}
             className={`${menuItemActive === "contact" ? "block" : "hidden"}`}
           />
           <Icon
             icon="fa7-regular:contact-book"
-            width="30"
+            width="27"
             height="30"
             style={{ color: "white" }}
             className={`${menuItemActive !== "contact" ? "block" : "hidden"}`}

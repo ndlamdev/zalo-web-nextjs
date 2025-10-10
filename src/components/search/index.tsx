@@ -19,7 +19,7 @@ export const Search = (props: Props) => {
   const refInput = useRef<HTMLInputElement>(null);
 
   return (
-    <div className={"flex gap-1"}>
+    <div className={"flex gap-1 p-4"}>
       <div
         className={`flex items-center gap-1 rounded-sm border-1 bg-gray-200 px-3 py-1 ${focusSearch ? "border-blue-500" : ""}`}
         onClick={() => refInput.current?.focus()}
