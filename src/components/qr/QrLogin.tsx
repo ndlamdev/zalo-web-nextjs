@@ -148,19 +148,12 @@ export const QrLogin = (props: QRProps) => {
       );
 
       eventSource.onmessage = (event) => {
-        const response = JSON.parse(event.data);
-        localStorage.setItem("phone_number", response.data.phone_number);
-        localStorage.setItem(
-          "phone_number_code",
-          response.data.phone_number_code,
-        );
-        localStorage.setItem("access_token", response.data.access_token);
         fetch("/api/auth/proxy-login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ cookie: response.data.refresh_token }),
+          body: event.data,
           credentials: "include",
         }).then(() => {
           router.replace("/");
