@@ -1,4 +1,3 @@
-import { Search } from "@/components/search";
 import Image from "next/image";
 import zaloIcon from "./icon.png";
 import { MainMenu } from "@/components/menu/MainMenu";
@@ -7,6 +6,9 @@ import { TabMessageType } from "@/components/tab/TabMessageType";
 import * as React from "react";
 import { ClassificationFriends } from "@/components/dropdown/ClassificationFriends";
 import { MoreOptionMessage } from "@/components/dropdown/MoreOptionMessage";
+import { MynauiTag } from "@/assets/icons/MynauiTag";
+import { EpArrowLeft } from "@/assets/icons/EpArrowLeft";
+import ChatFragment from "@/components/fragments/chat";
 
 export default function Home() {
   return (
@@ -21,25 +23,7 @@ export default function Home() {
         />
         <MainMenu />
       </div>
-      <div className={"grid h-full grid-cols-[345px_1fr] bg-white"}>
-        <div className={"border-r-[1px] border-gray-300"}>
-          <Search />
-          <div
-            className={
-              "mt-1 flex items-center justify-between border-b-1 border-gray-300"
-            }
-          >
-            <TabMessageType />
-
-            <div className={"flex"}>
-              <ClassificationFriends />
-              <MoreOptionMessage />
-            </div>
-          </div>
-        </div>
-      </div>
+      <ChatFragment />
     </div>
   );
 }
-
-
