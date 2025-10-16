@@ -148,12 +148,19 @@ export const QrLogin = (props: QRProps) => {
       );
 
       eventSource.onmessage = (event) => {
+        const response = JSON.parse(event.data);
+        localStorage.setItem("phone_number", response.data.phone_number);
+        localStorage.setItem(
+          "phone_number_code",
+          response.data.phone_number_code,
+        );
+        localStorage.setItem("access_token", response.data.access_token);
         fetch("/api/auth/proxy-login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: event.data,
+          body: JSON.stringify({ cookie: response.data.refresh_token }),
           credentials: "include",
         }).then(() => {
           router.replace("/");
@@ -186,22 +193,51 @@ export const QrLogin = (props: QRProps) => {
     };
   }, [data, registerEventSource]);
 
-  if (isMutating)
-    return (
-      <div
-        style={{ width: `${props.size}px`, height: `${props.size}px` }}
-        className={"flex items-center justify-center"}
-      >
-        <Spinner variant={"infinite"} />
-      </div>
-    );
+  return (
+    <div
+      className={
+        "mx-auto my-10 size-fit rounded-lg border-1 border-gray-200 p-1"
+      }
+    >
+      {isMutating ? (
+        <LoadingQr size={props.size} />
+      ) : (
+        <Qr
+          renew={renew.toString()}
+          onRenewQr={() => trigger().then()}
+          {...props}
+        />
+      )}
+      <p className={"mt-2 text-center text-lg text-blue-700"}>
+        Chỉ dùng để đăng nhập
+      </p>
+      <p className={"text-center text-lg"}>Zalo trên máy tính</p>
+    </div>
+  );
+};
 
+function LoadingQr(props: { size: number | undefined }) {
+  return (
+    <div
+      style={{ width: `${props.size}px`, height: `${props.size}px` }}
+      className={"flex items-center justify-center"}
+    >
+      <Spinner variant={"infinite"} />
+    </div>
+  );
+}
+
+function Qr({
+  renew,
+  onRenewQr,
+  ...props
+}: QRProps & { renew: string; onRenewQr: () => void }) {
   return (
     <div
       style={{ width: `${props.size}px`, height: `${props.size}px` }}
       className={"relative"}
     >
-      <div className={renew ? "opacity-10" : ""}>
+      <div className={renew === "true" ? "opacity-10" : ""}>
         <QRCodeSVG
           value={
             process.env.NEXT_PUBLIC_API_URL + `/api/qr/confirm?sid=""&token=""`
@@ -220,7 +256,7 @@ export const QrLogin = (props: QRProps) => {
           }
         />
       </div>
-      {renew && (
+      {renew === "true" && (
         <div
           className="qrcode-expired absolute top-0 left-0 flex items-center justify-center"
           style={{
@@ -233,7 +269,7 @@ export const QrLogin = (props: QRProps) => {
             <p className={"mb-1 text-center text-xs"}>Mã QR hết hạn</p>
             <button
               className="cursor-pointer rounded-md bg-blue-600 px-4 py-1 text-sm text-white"
-              onClick={() => trigger().then()}
+              onClick={onRenewQr}
             >
               Lấy mã mới
             </button>
@@ -242,4 +278,4 @@ export const QrLogin = (props: QRProps) => {
       )}
     </div>
   );
-};
+}
