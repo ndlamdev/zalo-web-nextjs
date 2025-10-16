@@ -142,6 +142,9 @@ export const UsernamePasswordLogin = (props: Props) => {
             placeholder={"Mật khẩu"}
             id={"password"}
             type={"password"}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleSubmit((res) => trigger(res))();
+            }}
             {...register("password", {
               required: "Vui lòng nhập mật khẩu",
             })}
